@@ -22,6 +22,23 @@ public class categorySteps {
         category.setRequestGETCategoryList();
     }
 
+    @Then("I validate the status code is {int}")
+    public void iValidateTheStatusCodeIs(int code) {
+        category.setValidateTheStatusCodeIs(code);
+    }
+
+    @And("validate the data detail after get category")
+    public void validateTheDataDetailAfterGetCategory() {
+        category.setValidateTheDataDetailAfterGetCategory();
+    }
+
+
+// Create Category
+    @When("I request {string} POST category")
+    public void iRequestPOSTCategory(String input) {
+        category.setRequestPOSTCategory(input);
+    }
+
     @Then("I validate the status code is {string}")
     public void iValidateTheStatusCodeIs(String sCode) {
         category.setValidateTheStatusCodeIs(sCode);
@@ -31,13 +48,6 @@ public class categorySteps {
     public void validateTheDataDetailAfterCategory(String status) {
         category.setValidateTheDataDetailAfterGetCategory(status);
     }
-
-// Create Category
-    @When("I request {string} POST category")
-    public void iRequestPOSTCategory(String input) {
-        category.setRequestPOSTCategory(input);
-    }
-
 
 
 
