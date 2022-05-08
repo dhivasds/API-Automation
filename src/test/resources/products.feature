@@ -5,7 +5,7 @@ Feature: Products
     Given I set an "<endpoint>" for products
     When I request "<inputP>" products
     Then I validate the status code is "<sCodeP>" in products
-#    And Validate the data detail after "<statusP>" products
+    And Validate the data detail after "<statusP>" products
     Examples:
       | endpoint | inputP | sCodeP | statusP |
       |     products           | validGetAllProducts   | 200 | getProducts          |

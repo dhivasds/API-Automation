@@ -12,7 +12,6 @@ public class productsSteps {
     @Steps
     Products products;
 
-//    BDD
     @Given("I set an {string} for products")
     public void iSetAnEndpoints(String endpoint){
         products.setAnEndpointProducts(endpoint);
@@ -29,86 +28,7 @@ public class productsSteps {
     }
 
     @And("Validate the data detail after {string} products")
-    public void iValidateAfterGetDetailProducts(){}
-
-
-//---------------END BDD---------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//// -----------------Get List---------------------
-//    @Given("I set an endpoint for products list")
-//    public void iSetAnEndpointForProductsList() {
-//        products.setAnEndpointForProductsList();
-//
-//    }
-//
-//    @When("I request GET products list")
-//    public void iRequestGETProductsList() {
-//        products.setRequestGETProductsList();
-//    }
-//
-//    @And("validate the data detail after get products")
-//    public void validateTheDataDetailAfterGetProducts() {
-//        products.setValidateTheDataDetailAfterGetProducts();
-//    }
-//
-////  ---------------By ID-----------------------------
-//    @Given("I set an endpoint for products id")
-//    public void iSetAnEndpointForProductsId() {
-//        products.setAnEndpointForProductsId();
-//    }
-//
-//    @When("I request GET products id")
-//    public void iRequestGETProductsId() {
-//        products.setRequestGETProductsId();
-//    }
-//
-//    @And("validate the data detail after get detail products")
-//    public void validateTheDataDetailAfterGetDetailProducts() {
-//        products.setValidateTheDataDetailAfterGetDetailProducts();
-//    }
-//
-//    @Given("I set an endpoint for invalid products id")
-//    public void iSetAnEndpointForInvalidProductsId() {
-//        products.iSetAnEndpointForInvalidProductsId();
-//    }
-//
-//    @When("I request GET invalid products id")
-//    public void iRequestGETInvalidProductsId() {
-//        products.setRequestGETInvalidProductsId();
-//    }
-//
-//    @And("validate the data detail after failed to get detail products")
-//    public void validateTheDataDetailAfterFailedToGetDetailProducts() {
-//        products.setValidateTheDataDetailAfterFailedToGetDetailProducts();
-//    }
-
-
-
+    public void iValidateAfterGetDetailProducts(String statusP){
+        products.setValidateDataDetailProducts(statusP);
+    }
 }
