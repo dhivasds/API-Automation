@@ -6,14 +6,21 @@ Feature: Authentication
     Given I set an "<endpoint>" for authentication
     When I request "<input>" POST authentication
     Then I validate the status code is "<sCode>"
-#    And validate the "<message>" after authentication
+    And validate the "<message>" after authentication
 #    And get data if "<message>" for other request
     Examples:
       | endpoint | input | sCode | message |
-      | register    | ValidInputRegister    | 200 | |
-      | register    | InputSameDataRegister | 400 | |
-      | login       | ValidInputLogin       | 200 | |
-      | login       | InputInvalidEmail     | 400 | |
-      | login       | InputInvalidPassword  | 400 | |
+      | register    | ValidInputRegister    | 200 | AccountRegister|
+      | register    | InputSameDataRegister | 400 | AccountInvalid|
+      | login       | ValidInputLogin       | 200 | AccountLogin|
+      | login       | InputInvalidEmail     | 400 | AccountInvalidEmail|
+      | login       | InputInvalidPassword  | 400 | AccountInvalidPassword|
 
-#    Registe
+#   ----- Register -----
+#  Input valid register
+#  Input invalid password with int
+#   ----- Login ----
+#  Input valid login
+#  Input invalid email & valid password
+#  Input valid email & invalid password
+

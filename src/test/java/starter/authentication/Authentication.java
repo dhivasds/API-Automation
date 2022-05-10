@@ -6,8 +6,12 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 import org.json.simple.JSONObject;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Authentication {
     String base_url = "https://be-qa.alta.id/api/auth/";
+    String email,password;
 
     @Steps
     General general;
@@ -22,12 +26,24 @@ public class Authentication {
     }
 
     @Step("I request {string} POST authentication")
-    public void setRequestPostAuth(String input){
+    public void setRequestPostAuth(String input) throws IOException {
         if (input.equals("ValidInputRegister")){
             JSONObject requestBody = new JSONObject();
+            this.email = general.randomEmail();
+            this.password = general.randomPassword(input);
+            try (FileWriter file = new FileWriter("src/test/resources/filejson/email.json")) {
+                file.write(this.email);
+                file.flush();
+            } try (FileWriter file = new FileWriter("src/test/resources/filejson/password.json")) {
+                file.write(this.password);
+                file.flush();
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+
             requestBody.put("fullname", general.randomName(input));
-            requestBody.put("email",general.randomEmail());
-            requestBody.put("password", "123123123");
+            requestBody.put("email",this.email);
+            requestBody.put("password", this.password);
 
             SerenityRest.given().header("Content-Type", "application/json")
                     .body(requestBody.toJSONString()).post(setEndpointForAuth("register"));
@@ -70,4 +86,8 @@ public class Authentication {
         }
     }
 
+//    @Step("validate the {string} after authentication")
+//    public void SetValidateAfterAuth(String message){
+//        if (message.equals("AccountRegister"));
+//    }
 }

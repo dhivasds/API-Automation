@@ -7,6 +7,8 @@ import io.cucumber.java.en.When;
 import net.thucydides.core.annotations.Steps;
 import starter.authentication.Authentication;
 
+import java.io.IOException;
+
 public class authenticationSteps {
     @Steps
     Authentication authentication;
@@ -19,7 +21,7 @@ public class authenticationSteps {
     }
 
     @When("I request {string} POST authentication")
-    public void iRequestPOSTAuthentication(String input) {
+    public void iRequestPOSTAuthentication(String input) throws IOException {
         authentication.setRequestPostAuth(input);
     }
 
