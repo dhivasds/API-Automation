@@ -4,10 +4,13 @@ import Utils.General;
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
+import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONObject;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class Authentication {
     String base_url = "https://be-qa.alta.id/api/auth/";
@@ -27,7 +30,7 @@ public class Authentication {
 
     @Step("I request {string} POST authentication")
     public void setRequestPostAuth(String input) throws IOException {
-        if (input.equals("ValidInputRegister")){
+        if (input.equals("InputValidRegister")){ // ? Input valid register
             JSONObject requestBody = new JSONObject();
             this.email = general.randomEmail();
             this.password = general.randomPassword(input);
@@ -48,38 +51,57 @@ public class Authentication {
             SerenityRest.given().header("Content-Type", "application/json")
                     .body(requestBody.toJSONString()).post(setEndpointForAuth("register"));
 
-        }else if (input.equals("InputSameDataRegister")){
+        }else if (input.equals("InputRegisterNullEmail")){ // ? Input Null email in register
             JSONObject requestBody = new JSONObject();
 
-//TODO      Yang diinput bukan same data tapi int password
-            requestBody.put("fullname", "Dhivas Dharma");
-            requestBody.put("email", "alexunder@email.com");
-            requestBody.put("password", 1);
+            requestBody.put("fullname", general.randomName(input));
+            requestBody.put("email", null);
+            requestBody.put("password", general.randomPassword(input));
 
             SerenityRest.given().header("Content-Type", "application/json")
                     .body(requestBody.toJSONString()).post(setEndpointForAuth("register"));
 
-        }else if (input.equals("ValidInputLogin")){
+        }else if (input.equals("InputRegisterNullPassword")){ // ? Input Null password in register
             JSONObject requestBody = new JSONObject();
+            requestBody.put("fullname", general.randomName(input));
+            requestBody.put("email", general.randomEmail());
+            requestBody.put("password", null);
 
-//TODO      EMAIL HARUS MATCH SAMA REGISTER (BLM SUCCESSFLY)
-            requestBody.put("email", "alexunder@email.com");
-            requestBody.put("password", "123123123");
+            SerenityRest.given().header("Content-Type", "application/json")
+                    .body(requestBody.toJSONString()).post(setEndpointForAuth("register"));
+        }else if (input.equals("ValidInputLogin")) { // ? Input valid login
+            JSONObject requestBody = new JSONObject();
+            this.email = FileUtils.readFileToString(new File(System.getProperty("user.dir") +
+                    "/src/test/resources/filejson/email.json"), StandardCharsets.UTF_8);
+            this.password = FileUtils.readFileToString(new File(System.getProperty("user.dir") +
+                    "/src/test/resources/filejson/password.json"), StandardCharsets.UTF_8);
+
+            String emailLogin = this.email;
+            String passwordLogin = this.password;
+
+            requestBody.put("email", emailLogin);
+            requestBody.put("password", passwordLogin);
 
             SerenityRest.given().header("Content-Type", "application/json")
                     .body(requestBody.toJSONString()).post(setEndpointForAuth("login"));
 
-        }else if (input.equals("InputInvalidEmail")){
+        }else if (input.equals("InputInvalidEmail")){ // ? Input invalid email & valid password
             JSONObject requestBody = new JSONObject();
-            requestBody.put("email", "alexunders@.com");
-            requestBody.put("password", "123123123");
+            this.password = FileUtils.readFileToString(new File(System.getProperty("user.dir") +
+                    "/src/test/resources/filejson/password.json"), StandardCharsets.UTF_8);
+
+            requestBody.put("email", general.randomEmail());
+            requestBody.put("password", this.password);
 
             SerenityRest.given().header("Content-Type", "application/json")
                     .body(requestBody.toJSONString()).post(setEndpointForAuth("login"));
-        }else {
+        }else { // ? Input valid email & invalid password
             JSONObject requestBody = new JSONObject();
-            requestBody.put("email", "alexunder@email.com");
-            requestBody.put("password", "12");
+            this.email = FileUtils.readFileToString(new File(System.getProperty("user.dir") +
+                    "/src/test/resources/filejson/email.json"), StandardCharsets.UTF_8);
+
+            requestBody.put("email", this.email);
+            requestBody.put("password", general.randomPassword(input));
 
             SerenityRest.given().header("Content-Type", "application/json")
                     .body(requestBody.toJSONString()).post(setEndpointForAuth("login"));

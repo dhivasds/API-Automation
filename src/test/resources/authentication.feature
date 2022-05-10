@@ -10,15 +10,17 @@ Feature: Authentication
 #    And get data if "<message>" for other request
     Examples:
       | endpoint | input | sCode | message |
-      | register    | ValidInputRegister    | 200 | AccountRegister|
-      | register    | InputSameDataRegister | 400 | AccountInvalid|
+      | register    | InputValidRegister    | 200 | AccountRegister|
+      | register    | InputRegisterNullEmail | 400 | AccountInvalid|
+      | register    | InputRegisterNullPassword | 400 | AccountInvalid|
       | login       | ValidInputLogin       | 200 | AccountLogin|
       | login       | InputInvalidEmail     | 400 | AccountInvalidEmail|
       | login       | InputInvalidPassword  | 400 | AccountInvalidPassword|
 
 #   ----- Register -----
 #  Input valid register
-#  Input invalid password with int
+#  Input Null email in register
+#  Input Null password in register
 #   ----- Login ----
 #  Input valid login
 #  Input invalid email & valid password
