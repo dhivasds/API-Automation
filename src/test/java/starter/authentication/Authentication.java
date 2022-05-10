@@ -3,12 +3,14 @@ package starter.authentication;
 import Utils.General;
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Step;
+import net.thucydides.core.annotations.Steps;
 import org.json.simple.JSONObject;
 
 public class Authentication {
-
     String base_url = "https://be-qa.alta.id/api/auth/";
 
+    @Steps
+    General general;
 
     @Step("I set an {string} for authentication")
     public String setEndpointForAuth(String endpoint){
@@ -23,8 +25,8 @@ public class Authentication {
     public void setRequestPostAuth(String input){
         if (input.equals("ValidInputRegister")){
             JSONObject requestBody = new JSONObject();
-            requestBody.put("fullname", "Dhivas Dharma");
-            requestBody.put("email", "alexunder1@email.com");
+            requestBody.put("fullname", general.randomName(input));
+            requestBody.put("email",general.randomEmail());
             requestBody.put("password", "123123123");
 
             SerenityRest.given().header("Content-Type", "application/json")

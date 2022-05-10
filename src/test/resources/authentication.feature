@@ -15,3 +15,5 @@ Feature: Authentication
       | login       | ValidInputLogin       | 200 | |
       | login       | InputInvalidEmail     | 400 | |
       | login       | InputInvalidPassword  | 400 | |
+
+#    Registe

@@ -1,5 +1,6 @@
 package starter.stepDefinitions;
 
+import Utils.General;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
@@ -9,6 +10,8 @@ import starter.authentication.Authentication;
 public class authenticationSteps {
     @Steps
     Authentication authentication;
+    @Steps
+    General general;
 
     @Given("I set an {string} for authentication")
     public void iSetAnForAuthentication(String endpoint) {
