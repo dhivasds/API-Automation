@@ -12,8 +12,7 @@ import java.io.IOException;
 public class authenticationSteps {
     @Steps
     Authentication authentication;
-    @Steps
-    General general;
+
 
     @Given("I set an {string} for authentication")
     public void iSetAnForAuthentication(String endpoint) {
@@ -25,11 +24,9 @@ public class authenticationSteps {
         authentication.setRequestPostAuth(input);
     }
 
-    @And("validate the {string} after authentication")
-    public void validateTheAfterAuthentication(String message) {
+    @And("validate the data detail {string} after authentication")
+    public void validateTheAfterAuthentication(String message) throws IOException {
+        authentication.SetValidateAfterAuth(message);
     }
 
-    @And("get data if {string} for other request")
-    public void getDataIfForOtherRequest(String message1) {
-    }
 }

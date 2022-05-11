@@ -24,28 +24,3 @@
 #
 #
 #
-#
-#
-#    # Get All Product
-### (+)
-##    Scenario: As a user i want get all products
-##      Given I set an endpoint for products list
-##      When I request GET products list
-##      Then I validate the status code is 200
-##      And validate the data detail after get products
-##
-### Get Product by ID
-### (+)
-##    Scenario: As a user i want to get detail product
-##      Given I set an endpoint for products id
-##      When I request GET products id
-##      Then I validate the status code is 200
-##      And validate the data detail after get detail products
-### (-)
-##  Scenario: As a user i can't to get detail product
-##    Given I set an endpoint for invalid products id
-##    When I request GET invalid products id
-##    Then I validate the status code is 404
-##    And validate the data detail after failed to get detail products
-#
-#

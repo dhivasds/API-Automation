@@ -1,10 +1,12 @@
 package starter.authentication;
 
 import Utils.General;
+import io.restassured.response.Response;
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 import org.apache.commons.io.FileUtils;
+import org.hamcrest.Matchers;
 import org.json.simple.JSONObject;
 
 import java.io.File;
@@ -12,9 +14,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+import static net.serenitybdd.rest.SerenityRest.restAssuredThat;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.equalTo;
+
 public class Authentication {
     String base_url = "https://be-qa.alta.id/api/auth/";
-    String email,password;
+    String email,password,token;
 
     @Steps
     General general;
@@ -108,8 +114,39 @@ public class Authentication {
         }
     }
 
-//    @Step("validate the {string} after authentication")
-//    public void SetValidateAfterAuth(String message){
-//        if (message.equals("AccountRegister"));
-//    }
+    @Step("validate the {string} after authentication")
+    public void SetValidateAfterAuth(String message) throws IOException {
+        if (message.equals("AccountRegister")){
+            this.email = FileUtils.readFileToString(new File(System.getProperty("user.dir") +
+                    "/src/test/resources/filejson/email.json"), StandardCharsets.UTF_8);
+            System.out.println(this.email);
+
+            restAssuredThat(response -> response.body("'data'.'Email'", Matchers.equalTo(this.email)));
+
+        }else if(message.equals("AccountInvalidEmail")){
+            restAssuredThat(response -> response.body("'error'", Matchers.equalTo("email is required")));
+        }else if(message.equals("AccountInvalidPassword")){
+            restAssuredThat(response -> response.body("'error'", Matchers.equalTo("password is required")));
+        }else if (message.equals("AccountLogin")){ // ? CATCH TOKEN & THROW
+        //* TOKEN GET CATCH USING "response.jsonPath().getString("data")"
+            Response responseToken = SerenityRest.lastResponse();
+            String getToken = responseToken.jsonPath().getString("data");
+            System.out.println(getToken);
+            try (FileWriter file = new FileWriter("src/test/resources/filejson/token.json")) {
+                file.write(getToken);
+                file.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            restAssuredThat(response -> response.body("'data'", Matchers.equalTo(getToken)));
+        }else if (message.equals("AccountInvalidRecordNotFound")){
+            restAssuredThat(response -> response.body("'error'", Matchers.equalTo("record not found")));
+        }else{
+            restAssuredThat(response -> response.body("'error'",
+                    Matchers.equalTo("email or password is invalid")));
+        }
+    }
+
+
 }

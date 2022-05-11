@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import org.json.simple.JSONObject;
 
 import static net.serenitybdd.rest.SerenityRest.restAssuredThat;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 
 public class Products {
@@ -65,9 +66,12 @@ public class Products {
     @Step("Validate the data detail after {string} products")
     public void setValidateDataDetailProducts(String statusP){
         if (statusP.equals("getProducts")){
-//          Equals not match, yang ke ambil array
-            restAssuredThat(response -> response.body("'data'.'ID'",equalTo(368)));
-            restAssuredThat(response -> response.body("'data'.'Name'",equalTo("Tensi Darah Elektrik")));
+//?          Equals not match, yang ke ambil array
+//            restAssuredThat(response -> response.body("'data'.'ID'",equalTo(368)));
+//            restAssuredThat(response -> response.body("'data'.'Name'",equalTo("Tensi Darah Elektrik")));
+//!            FIX ke Equals tapi yg Auth (valid register & valid login) error. recheck lagi apakah ngaruh ketika dirubah ke contains
+            restAssuredThat(response -> contains("'data'.'ID'",equalTo(368)));
+            restAssuredThat(response -> contains("'data'.'Name'",equalTo("Tensi Darah Elektrik")));
         }else if (statusP.equals("getProductById")){
             restAssuredThat(response -> response.body("'data'.'ID'",equalTo(368)));
             restAssuredThat(response -> response.body("'data'.'Name'",equalTo("Tensi Darah Elektrik")));

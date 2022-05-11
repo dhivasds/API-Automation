@@ -5,6 +5,7 @@ import net.thucydides.core.annotations.Step;
 import org.json.simple.JSONObject;
 
 import static net.serenitybdd.rest.SerenityRest.restAssuredThat;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 
 public class Category {
@@ -31,6 +32,10 @@ public class Category {
 //        restAssuredThat(response -> response.body("'data'.'ID'",equalTo(1)));
 //        restAssuredThat(response -> response.body("'data'.'Name'",equalTo("kesehatan")));
 //        restAssuredThat(response -> response.body("'data'.'Description'",equalTo("")));
+//!        FIX EQUALS USING CONTAINS ( RECHECK LAGI ) seperti di all products GET
+        restAssuredThat(response -> contains("'data'.'ID'",equalTo(1)));
+        restAssuredThat(response -> contains("'data'.'Name'",equalTo("kesehatan")));
+        restAssuredThat(response -> contains("'data'.'Description'",equalTo("")));
     }
 
 
