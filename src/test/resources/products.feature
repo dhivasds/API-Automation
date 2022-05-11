@@ -8,7 +8,7 @@ Feature: Products
     And Validate the data detail after "<statusP>" products
     Examples:
       | endpoint | inputP | sCodeP | statusP |
-#      |     products           | validGetAllProducts   | 200 | getProducts          |
+      |     products           | validGetAllProducts   | 200 | getProducts          |
 #      |     productsByValidId  | validGetProductById   | 200 | getProductById       |
 #      |     productsByInvalidId| invalidGetProductById | 404 | failedGetProductById |
       |     products           | validCreateProduct    | 200 | createProduct        |

@@ -1,9 +1,15 @@
 package starter.products;
 
+import io.restassured.response.Response;
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Step;
 import org.jetbrains.annotations.NotNull;
 import org.json.simple.JSONObject;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static net.serenitybdd.rest.SerenityRest.restAssuredThat;
 import static org.hamcrest.Matchers.contains;
@@ -35,11 +41,14 @@ public class Products {
             SerenityRest.given().get(setAnEndpointProducts("productsByInvalidId"));
         }else if (inputP.equals("validCreateProduct")){
             JSONObject requestBody = new JSONObject();
+            List<Integer> data = new ArrayList<>();
+
             requestBody.put("name", "Tensi Darah Elektrik");
             requestBody.put("price", 1000);
-//            Need Fix kalau mau post pakai categories
-//            requestBody.put("categories[0]",3 );
-//            requestBody.put("categories[1]",6 );
+            data.add(3);
+            data.add(6);
+            requestBody.put("categories", data);
+
             SerenityRest.given().header("Content-Type", "application/json")
                     .body(requestBody.toJSONString()).post(setAnEndpointProducts("products"));
         }else {
@@ -66,21 +75,30 @@ public class Products {
     @Step("Validate the data detail after {string} products")
     public void setValidateDataDetailProducts(String statusP){
         if (statusP.equals("getProducts")){
-//?          Equals not match, yang ke ambil array
-//!          Proggress Ambil dulu IDnya
-//            restAssuredThat(response -> response.body("'data'.'ID'",equalTo(368)));
-//            restAssuredThat(response -> response.body("'data'.'Name'",equalTo("Tensi Darah Elektrik")));
+            restAssuredThat(response -> response.body("data[0].Name",equalTo("Tensi Darah Elektrik")));
 
         }else if (statusP.equals("getProductById")){
             restAssuredThat(response -> response.body("'data'.'ID'",equalTo(430)));
             restAssuredThat(response -> response.body("'data'.'Name'",equalTo("Tensi Darah Elektrik")));
             restAssuredThat(response -> response.body("'data'.'Price'",equalTo(240000)));
+
         }else if (statusP.equals("failedGetProductById")){
             restAssuredThat(response -> response.body("'error'",equalTo("record not found")));
+
         }else if (statusP.equals("createProduct")){
-//            ! ON PROGGRES | CATCH ID
+            Response responseId = SerenityRest.lastResponse();
+            String getId = responseId.jsonPath().getString("'data'.'ID'");
+            System.out.println(getId);
+            try (FileWriter file = new FileWriter("src/test/resources/filejson/Id.json")) {
+                file.write(getId);
+                file.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             restAssuredThat(response -> response.body("'data'.'Name'",equalTo("Tensi Darah Elektrik")));
             restAssuredThat(response -> response.body("'data'.'Price'",equalTo(1000)));
+
         }else {
             restAssuredThat(response -> response.body("'error'",equalTo("json: cannot unmarshal number into Go struct field ProductCreate.name of type string")));
         }
