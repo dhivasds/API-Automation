@@ -15,8 +15,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 import static net.serenitybdd.rest.SerenityRest.restAssuredThat;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.equalTo;
+
 
 public class Authentication {
     String base_url = "https://be-qa.alta.id/api/auth/";

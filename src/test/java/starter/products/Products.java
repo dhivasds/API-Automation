@@ -19,7 +19,7 @@ public class Products {
         if (endpoint.equals("productsByInvalidId")){
             return base_url + "products/1";
         }else if (endpoint.equals("productsByValidId")){
-            return base_url + "products/368";
+            return base_url + "products/430";
         }else {
             return base_url + "products";
         }
@@ -35,7 +35,7 @@ public class Products {
             SerenityRest.given().get(setAnEndpointProducts("productsByInvalidId"));
         }else if (inputP.equals("validCreateProduct")){
             JSONObject requestBody = new JSONObject();
-            requestBody.put("name", "Tensi Darah Manual");
+            requestBody.put("name", "Tensi Darah Elektrik");
             requestBody.put("price", 1000);
 //            Need Fix kalau mau post pakai categories
 //            requestBody.put("categories[0]",3 );
@@ -67,19 +67,19 @@ public class Products {
     public void setValidateDataDetailProducts(String statusP){
         if (statusP.equals("getProducts")){
 //?          Equals not match, yang ke ambil array
+//!          Proggress Ambil dulu IDnya
 //            restAssuredThat(response -> response.body("'data'.'ID'",equalTo(368)));
 //            restAssuredThat(response -> response.body("'data'.'Name'",equalTo("Tensi Darah Elektrik")));
-//!            FIX ke Equals tapi yg Auth (valid register & valid login) error. recheck lagi apakah ngaruh ketika dirubah ke contains
-            restAssuredThat(response -> contains("'data'.'ID'",equalTo(368)));
-            restAssuredThat(response -> contains("'data'.'Name'",equalTo("Tensi Darah Elektrik")));
+
         }else if (statusP.equals("getProductById")){
-            restAssuredThat(response -> response.body("'data'.'ID'",equalTo(368)));
+            restAssuredThat(response -> response.body("'data'.'ID'",equalTo(430)));
             restAssuredThat(response -> response.body("'data'.'Name'",equalTo("Tensi Darah Elektrik")));
-            restAssuredThat(response -> response.body("'data'.'Price'",equalTo(3200000)));
+            restAssuredThat(response -> response.body("'data'.'Price'",equalTo(240000)));
         }else if (statusP.equals("failedGetProductById")){
             restAssuredThat(response -> response.body("'error'",equalTo("record not found")));
         }else if (statusP.equals("createProduct")){
-            restAssuredThat(response -> response.body("'data'.'Name'",equalTo("Tensi Darah Manual")));
+//            ! ON PROGGRES | CATCH ID
+            restAssuredThat(response -> response.body("'data'.'Name'",equalTo("Tensi Darah Elektrik")));
             restAssuredThat(response -> response.body("'data'.'Price'",equalTo(1000)));
         }else {
             restAssuredThat(response -> response.body("'error'",equalTo("json: cannot unmarshal number into Go struct field ProductCreate.name of type string")));

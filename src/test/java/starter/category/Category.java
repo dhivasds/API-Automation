@@ -28,14 +28,9 @@ public class Category {
 
     @Step("validate the data detail after get category")
     public void setValidateTheDataDetailAfterGetCategory() {
-//        Not equals in get list category
-//        restAssuredThat(response -> response.body("'data'.'ID'",equalTo(1)));
-//        restAssuredThat(response -> response.body("'data'.'Name'",equalTo("kesehatan")));
-//        restAssuredThat(response -> response.body("'data'.'Description'",equalTo("")));
-//!        FIX EQUALS USING CONTAINS ( RECHECK LAGI ) seperti di all products GET
-        restAssuredThat(response -> contains("'data'.'ID'",equalTo(1)));
-        restAssuredThat(response -> contains("'data'.'Name'",equalTo("kesehatan")));
-        restAssuredThat(response -> contains("'data'.'Description'",equalTo("")));
+        restAssuredThat(response -> response.body("data[0].ID",equalTo(1)));
+        restAssuredThat(response -> response.body("data[0].Name",equalTo("kesehatan")));
+
     }
 
 
