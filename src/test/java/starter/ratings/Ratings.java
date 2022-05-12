@@ -1,5 +1,6 @@
 package starter.ratings;
 
+import io.restassured.response.Response;
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Step;
 import org.apache.commons.io.FileUtils;
@@ -7,6 +8,7 @@ import org.hamcrest.Matchers;
 import org.json.simple.JSONObject;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
@@ -74,7 +76,21 @@ public class Ratings {
     @Step("validate the data detail after {string} ratings")
     public void setValidateDataDetailRatings(String message) throws IOException {
         if (message.equals("GetRatingsById")){
-            restAssuredThat(response -> response.body("'data'", Matchers.equalTo(0)));
+//          * Karna ratings ketika di GET, object data akan terus berubah. maka di Catch agar dinamis
+//          ! On Progress
+            Response responseRatings = SerenityRest.lastResponse();
+            String getRatings = responseRatings.jsonPath().getString("data");
+            System.out.println(getRatings);
+
+            try (FileWriter file = new FileWriter("src/test/resources/filejson/ratings.json")) {
+                file.write(getRatings);
+                file.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            restAssuredThat(response -> response.body("data", Matchers.equalTo(getRatings)));
+
         }else if (message.equals("DetailRantingProductById")){
             restAssuredThat(response -> response.body("'data'.'Name'", Matchers.equalTo("Tensi Darah Elektrik")));
             restAssuredThat(response -> response.body("'data'.'Price'", Matchers.equalTo(1000)));

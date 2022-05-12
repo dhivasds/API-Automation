@@ -75,8 +75,9 @@ public class Products {
     @Step("Validate the data detail after {string} products")
     public void setValidateDataDetailProducts(String statusP){
         if (statusP.equals("getProducts")){
-            Response responseId = SerenityRest.lastResponse();
-            String getNameProduct = responseId.jsonPath().getString("data[0].Name");
+//          * Karna list product ketika di GET, akan terus berubah. maka di Catch namanya agar dinamis
+            Response responseName = SerenityRest.lastResponse();
+            String getNameProduct = responseName.jsonPath().getString("data[0].Name");
             System.out.println(getNameProduct);
             try (FileWriter file = new FileWriter("src/test/resources/filejson/nameProduct.json")) {
                 file.write(getNameProduct);
