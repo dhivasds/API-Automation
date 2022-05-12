@@ -1,8 +1,9 @@
 Feature: Rantings
-  As aa
+  As a user
+  I want to rantings products
+  So that i can give ranting products
 
-
-  Scenario Outline: Rantings
+  Scenario Outline: Rantings Functionality
     Given I set an "<endpoint>" for ratings
     When I request "<inputR>" ratings
     Then I validate the status code is "<sCode>"

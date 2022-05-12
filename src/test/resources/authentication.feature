@@ -1,8 +1,9 @@
 Feature: Authentication
   As a user
+  I want to register and login
+  So that i can access register and login
 
-
-  Scenario Outline: authentication
+  Scenario Outline: Authentication Functionality
     Given I set an "<endpoint>" for authentication
     When I request "<input>" POST authentication
     Then I validate the status code is "<sCode>"

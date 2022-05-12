@@ -1,8 +1,9 @@
 Feature: Comments
-  As aa
+  As an user
+  I want to comments a products
+  So that i can give comments to products
 
-
-  Scenario Outline: Comments
+  Scenario Outline: Comments Functionality
     Given I set an endpoint for comments
     When I request "<inputC>" comments
     Then I validate the status code is "<sCode>"
@@ -15,9 +16,11 @@ Feature: Comments
       | GetAllComments           | 200  | GetAllCommentsById|
 
 #   ---- POST -----
-
-
+# Give Comment to a product with valid input
+# Give Comment to a product with null input
+# Give Comment to a product with invalid token
 #   ---- GET -----
+#  Get all comments by Id
 
 
 

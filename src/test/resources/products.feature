@@ -1,5 +1,7 @@
 Feature: Products
-
+  As a user
+  I want to input and get products
+  So that i can access input and get products
 
   Scenario Outline: Product Functionality
     Given I set an "<endpoint>" for products
