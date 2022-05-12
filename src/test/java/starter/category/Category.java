@@ -68,7 +68,9 @@ public class Category {
             restAssuredThat(response -> response.statusCode(200));
         }else if(sCode.equals("400")){
             restAssuredThat(response -> response.statusCode(400));
-        }else{
+        } else if (sCode.equals("401")) {
+            restAssuredThat(respone -> respone.statusCode(401));
+        } else {
             restAssuredThat(response -> response.statusCode(500));
         }
     }

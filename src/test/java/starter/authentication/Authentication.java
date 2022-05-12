@@ -19,7 +19,7 @@ import static net.serenitybdd.rest.SerenityRest.restAssuredThat;
 
 public class Authentication {
     String base_url = "https://be-qa.alta.id/api/auth/";
-    String email,password,token;
+    String email,password;
 
     @Steps
     General general;
@@ -100,6 +100,7 @@ public class Authentication {
 
             SerenityRest.given().header("Content-Type", "application/json")
                     .body(requestBody.toJSONString()).post(setEndpointForAuth("login"));
+
         }else { // ? Input valid email & invalid password
             JSONObject requestBody = new JSONObject();
             this.email = FileUtils.readFileToString(new File(System.getProperty("user.dir") +
@@ -142,8 +143,7 @@ public class Authentication {
         }else if (message.equals("AccountInvalidRecordNotFound")){
             restAssuredThat(response -> response.body("'error'", Matchers.equalTo("record not found")));
         }else{
-            restAssuredThat(response -> response.body("'error'",
-                    Matchers.equalTo("email or password is invalid")));
+            restAssuredThat(response -> response.body("'error'", Matchers.equalTo("email or password is invalid")));
         }
     }
 
