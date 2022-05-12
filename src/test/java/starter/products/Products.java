@@ -75,7 +75,17 @@ public class Products {
     @Step("Validate the data detail after {string} products")
     public void setValidateDataDetailProducts(String statusP){
         if (statusP.equals("getProducts")){
-            restAssuredThat(response -> response.body("data[0].Name",equalTo("Tensi Darah Elektrik")));
+            Response responseId = SerenityRest.lastResponse();
+            String getNameProduct = responseId.jsonPath().getString("data[0].Name");
+            System.out.println(getNameProduct);
+            try (FileWriter file = new FileWriter("src/test/resources/filejson/nameProduct.json")) {
+                file.write(getNameProduct);
+                file.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            restAssuredThat(response -> response.body("data[0].Name",equalTo(getNameProduct)));
 
         }else if (statusP.equals("getProductById")){
             restAssuredThat(response -> response.body("'data'.'ID'",equalTo(430)));

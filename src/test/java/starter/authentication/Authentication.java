@@ -130,7 +130,7 @@ public class Authentication {
         }else if (message.equals("AccountLogin")){ // ? CATCH TOKEN & THROW
         //* TOKEN GET CATCH USING "response.jsonPath().getString("data")"
             Response responseToken = SerenityRest.lastResponse();
-            String getToken = responseToken.jsonPath().getString("data");
+            String getToken = responseToken.jsonPath().getString("data.Name");
             System.out.println(getToken);
             try (FileWriter file = new FileWriter("src/test/resources/filejson/token.json")) {
                 file.write(getToken);

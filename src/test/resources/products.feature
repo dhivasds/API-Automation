@@ -11,7 +11,7 @@ Feature: Products
       |     products           | validGetAllProducts   | 200 | getProducts          |
 #      |     productsByValidId  | validGetProductById   | 200 | getProductById       |
 #      |     productsByInvalidId| invalidGetProductById | 404 | failedGetProductById |
-      |     products           | validCreateProduct    | 200 | createProduct        |
+#      |     products           | validCreateProduct    | 200 | createProduct        |
 #      |     products           | invalidCreateProduct  | 400 | failedCreateProduct  |
 
 # ---- GET ----
