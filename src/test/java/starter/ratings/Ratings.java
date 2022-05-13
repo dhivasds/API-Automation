@@ -76,8 +76,7 @@ public class Ratings {
     @Step("validate the data detail after {string} ratings")
     public void setValidateDataDetailRatings(String message) throws IOException {
         if (message.equals("GetRatingsById")){
-//          * Karna ratings ketika di GET, object data akan terus berubah. maka di Catch agar dinamis
-//          ! On Progress
+
             Response responseRatings = SerenityRest.lastResponse();
             String getRatings = responseRatings.jsonPath().getString("data");
             System.out.println(getRatings);
@@ -89,7 +88,8 @@ public class Ratings {
                 e.printStackTrace();
             }
 
-            restAssuredThat(response -> response.body("data", Matchers.equalTo(getRatings)));
+            restAssuredThat(response -> response.body("data", Matchers.equalTo(Integer.parseInt(getRatings))));
+
 
         }else if (message.equals("DetailRantingProductById")){
             restAssuredThat(response -> response.body("'data'.'Name'", Matchers.equalTo("Tensi Darah Elektrik")));

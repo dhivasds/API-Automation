@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static net.serenitybdd.rest.SerenityRest.restAssuredThat;
-import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 
 public class Products {
@@ -25,7 +24,7 @@ public class Products {
         if (endpoint.equals("productsByInvalidId")){
             return base_url + "products/1";
         }else if (endpoint.equals("productsByValidId")){
-            return base_url + "products/430";
+            return base_url + "products/1448";
         }else {
             return base_url + "products";
         }
@@ -75,7 +74,6 @@ public class Products {
     @Step("Validate the data detail after {string} products")
     public void setValidateDataDetailProducts(String statusP){
         if (statusP.equals("getProducts")){
-//          * Karna list product ketika di GET, akan terus berubah. maka di Catch namanya agar dinamis
             Response responseName = SerenityRest.lastResponse();
             String getNameProduct = responseName.jsonPath().getString("data[0].Name");
             System.out.println(getNameProduct);
@@ -89,9 +87,9 @@ public class Products {
             restAssuredThat(response -> response.body("data[0].Name",equalTo(getNameProduct)));
 
         }else if (statusP.equals("getProductById")){
-            restAssuredThat(response -> response.body("'data'.'ID'",equalTo(430)));
+            restAssuredThat(response -> response.body("'data'.'ID'",equalTo(1448)));
             restAssuredThat(response -> response.body("'data'.'Name'",equalTo("Tensi Darah Elektrik")));
-            restAssuredThat(response -> response.body("'data'.'Price'",equalTo(240000)));
+            restAssuredThat(response -> response.body("'data'.'Price'",equalTo(1000)));
 
         }else if (statusP.equals("failedGetProductById")){
             restAssuredThat(response -> response.body("'error'",equalTo("record not found")));
