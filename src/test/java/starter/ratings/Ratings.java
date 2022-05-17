@@ -43,7 +43,7 @@ public class Ratings {
         }else if (inputR.equals("validGiveRantingsById")){ //? Give Rating to product with valid Id & valid token
             JSONObject requestBody = new JSONObject();
             requestBody.put("count", 2);
-//           * Catch Token
+//           * Read Token
             this.token = FileUtils.readFileToString(new File(System.getProperty("user.dir") +
                     "/src/test/resources/filejson/token.json"), StandardCharsets.UTF_8);
             System.out.println(this.token);
@@ -54,7 +54,7 @@ public class Ratings {
         }else if (inputR.equals("invalidGiveRantingsById")){ //? Give Rating to product with invalid Id & valid token
             JSONObject requestBody = new JSONObject();
             requestBody.put("count", 2);
-//           * Catch Token
+//           * Read Token
             this.token = FileUtils.readFileToString(new File(System.getProperty("user.dir") +
                     "/src/test/resources/filejson/token.json"), StandardCharsets.UTF_8);
             System.out.println(this.token);

@@ -24,7 +24,7 @@ public class Products {
         if (endpoint.equals("productsByInvalidId")){
             return base_url + "products/1";
         }else if (endpoint.equals("productsByValidId")){
-            return base_url + "products/1448";
+            return base_url + "products/1468";
         }else {
             return base_url + "products";
         }
@@ -87,9 +87,9 @@ public class Products {
             restAssuredThat(response -> response.body("data[0].Name",equalTo(getNameProduct)));
 
         }else if (statusP.equals("getProductById")){
-            restAssuredThat(response -> response.body("'data'.'ID'",equalTo(1448)));
+            restAssuredThat(response -> response.body("'data'.'ID'",equalTo(1468)));
             restAssuredThat(response -> response.body("'data'.'Name'",equalTo("Tensi Darah Elektrik")));
-            restAssuredThat(response -> response.body("'data'.'Price'",equalTo(1000)));
+            restAssuredThat(response -> response.body("'data'.'Price'",equalTo(240000)));
 
         }else if (statusP.equals("failedGetProductById")){
             restAssuredThat(response -> response.body("'error'",equalTo("record not found")));
