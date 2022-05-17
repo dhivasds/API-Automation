@@ -4,7 +4,6 @@ Feature: Category
   So that i can access input category and get category
 
 # Get Categories (BDD)
-# (+)
   Scenario: As a user i want to see all categories
     Given I set an endpoint for user
     When I request GET category list
@@ -12,7 +11,6 @@ Feature: Category
     And validate the data detail after get category
 
 # Create Categories (DDT)
-# (+)(-)
   Scenario Outline: Category Functionality
     Given I set an endpoint for user
     When I request "<input>" POST category
